@@ -8,9 +8,16 @@ export const env = createEnv({
    */
   server: {
     DATABASE_URL: z.string().url(),
+    OPENAI_API_KEY: z.string(),
+    OPENAI_MODEL: z.string().default("gpt-3.5-turbo"),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
+    LANGCHAIN_TRACING_V2: z.string().default("false"),
+    LANGCHAIN_API_KEY: z.string(),
+    LANGCHAIN_ENDPOINT: z.string().default("https://api.smith.langchain.com"),
+    LANGCHAIN_PROJECT: z.string().default("recipe-assistant"),
+    LANGCHAIN_CALLBACKS_BACKGROUND: z.string().default("true"),
   },
 
   /**
@@ -29,6 +36,13 @@ export const env = createEnv({
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
+    OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+    OPENAI_MODEL: process.env.OPENAI_MODEL,
+    LANGCHAIN_TRACING_V2: process.env.LANGCHAIN_TRACING_V2,
+    LANGCHAIN_ENDPOINT: process.env.LANGCHAIN_ENDPOINT,
+    LANGCHAIN_API_KEY: process.env.LANGCHAIN_API_KEY,
+    LANGCHAIN_PROJECT: process.env.LANGCHAIN_PROJECT,
+    LANGCHAIN_CALLBACKS_BACKGROUND: process.env.LANGCHAIN_CALLBACKS_BACKGROUND,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**

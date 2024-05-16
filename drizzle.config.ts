@@ -8,5 +8,5 @@ export default {
   dbCredentials: {
     url: env.DATABASE_URL,
   },
-  tablesFilter: ["recipe-assistant_*"],
+  tablesFilter: ["ra_*"],
 } satisfies Config;
