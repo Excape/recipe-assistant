@@ -23,7 +23,7 @@ export const recipes = createTable(
   "recipe",
   {
     id: serial("id").primaryKey(),
-    title: varchar("title", { length: 256 }),
+    title: varchar("title", { length: 256 }).notNull(),
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
@@ -39,6 +39,7 @@ export const recipeIngredients = createTable(
     id: serial("id").primaryKey(),
     name: varchar("name", { length: 256 }),
     quantity: varchar("quantity", { length: 32 }),
+    measure: varchar("measure", { length: 32 }),
     recipeId: integer("recipe_id")
       .notNull()
       .references(() => recipes.id),

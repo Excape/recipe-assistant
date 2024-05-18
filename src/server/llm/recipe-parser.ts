@@ -1,23 +1,13 @@
 import { HumanMessage } from "@langchain/core/messages";
-import {
-  JsonOutputParser,
-  StringOutputParser,
-} from "@langchain/core/output_parsers";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { ChatOpenAI } from "@langchain/openai";
 import { env } from "~/env";
 import { z } from "zod";
-import { RecipeIngredient, ZRecipeIngredient } from "./interfaces";
+import { type RecipeIngredient, ZRecipeIngredient } from "./interfaces";
 
 async function fileToBase64(file: File) {
-  return Buffer.from(await file.arrayBuffer()).toString("base64");
-  // return new Promise<string>((resolve) => {
-  //   const reader = new FileReader();
-  //   reader.onload = () => {
-  //     resolve(reader.result as string);
-  //   };
-  //   reader.readAsDataURL(file);
-  // });
+  const buffer = await file.arrayBuffer();
+  return Buffer.from(buffer).toString("base64");
 }
 
 const chatModel = new ChatOpenAI({
@@ -40,7 +30,8 @@ const prompt = ChatPromptTemplate.fromMessages([
   [
     "system",
     `Provided a picture of a recipe, you will extract the ingredients from it and produce a JSON object with the key "ingredients" containing a list of objects the following fields:
-    - "quantity" (string) - the quantity of the ingredient, e.g. "1 cup", "1/2 tbs". Ignore any auxiliary information about it
+    - "quantity" (string) - the quantity of the ingredient, e.g. "1", "1/2", "500". Ignore any auxiliary information about it
+    - "measure" (string) - the measure of the ingredient, e.g. "cup", "tbs", "can". Ignore any auxiliary information about it
     - "ingredient" (string) - the ingredient like it would appear on a shopping list. Ignore any indication of how to prepare an ingredient, like "chopped" or "diced".
     `,
   ],
