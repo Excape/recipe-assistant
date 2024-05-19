@@ -1,19 +1,7 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
-
-function SubmitButton() {
-  const { pending } = useFormStatus();
-  return (
-    <button
-      type="submit"
-      className="rounded bg-blue-500 p-2 text-white disabled:bg-blue-100 disabled:text-gray-500"
-      disabled={pending}
-    >
-      Add Recipe
-    </button>
-  );
-}
+import { useFormState } from "react-dom";
+import { SubmitButton } from "./submit-button";
 
 interface FormState {
   message: string;
@@ -46,7 +34,7 @@ export function AddRecipeForm({
         />
         <span className="cursor-pointer">Upload Photo</span>
       </label>
-      <SubmitButton />
+      <SubmitButton label="Add Recipe" />
       <p>{state.message}</p>
     </form>
   );

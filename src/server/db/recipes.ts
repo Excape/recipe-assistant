@@ -8,6 +8,8 @@ export interface RecipeWithIngredient {
   ingredients: (typeof recipeIngredients.$inferSelect)[];
 }
 
+export type RecipeIngredient = typeof recipeIngredients.$inferSelect;
+
 export async function getAllRecipes(): Promise<RecipeWithIngredient[]> {
   return await db.query.recipes.findMany({
     orderBy: [desc(recipes.id)],
